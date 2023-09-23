@@ -9,11 +9,11 @@ import com.robson.course.entidades.Usuario;
 
 @RestController
 @RequestMapping(value = "/usuarios")
-public class RecursosDeUsuarios {
+public class RecursosDeUsuario {
 
     @GetMapping
     public ResponseEntity<Usuario> findAll(){
-        Usuario u = new Usuario(1L, "maria", "maria@gmail.com", "999999", "1237");
+        Usuario u = new Usuario("maria", "maria@gmail.com", "999999", "1237");
         return ResponseEntity.ok().body(u);
     }
 
