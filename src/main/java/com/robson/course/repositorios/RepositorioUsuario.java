@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.robson.course.entidades.Usuario;
 
-public interface RepositorioDeUsuario extends JpaRepository<Usuario, Long>{
+public interface RepositorioUsuario extends JpaRepository<Usuario, Long>{
     
 }

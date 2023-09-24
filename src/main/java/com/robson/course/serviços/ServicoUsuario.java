@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.robson.course.entidades.Usuario;
-import com.robson.course.repositorios.RepositorioDeUsuario;
+import com.robson.course.repositorios.RepositorioUsuario;
 
 @Service
 public class ServicoUsuario {
 
     @Autowired
-    private RepositorioDeUsuario repositorio;
+    private RepositorioUsuario repositorio;
 
     public List<Usuario> buscarTodos(){
         return repositorio.findAll();
