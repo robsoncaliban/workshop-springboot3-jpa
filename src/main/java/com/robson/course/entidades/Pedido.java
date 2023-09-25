@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.robson.course.entidades.enums.PedidoStatus;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,17 +30,30 @@ public class Pedido implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant momento;
+    private Integer status;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Usuario cliente;
 
-    public Pedido(Instant momento, Usuario cliente){
+
+    public Pedido(Instant momento, PedidoStatus status, Usuario cliente){
         this.momento = momento;
+        setStatus(status);
         this.cliente = cliente;
+    }
+
+    public PedidoStatus getStatus(){
+        return PedidoStatus.valueOf(status);
+    }
+
+    public void setStatus(PedidoStatus status){
+        if(status != null){
+            this.status = status.getCodigo();
+        }
     }
 
 }

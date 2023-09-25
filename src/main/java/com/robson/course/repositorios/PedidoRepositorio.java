@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.robson.course.entidades.Pedido;
 
-public interface RepositorioPedido extends JpaRepository<Pedido,Long> {
+public interface PedidoRepositorio extends JpaRepository<Pedido,Long> {
     
 }

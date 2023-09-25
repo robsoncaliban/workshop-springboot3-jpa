@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.robson.course.entidades.Pedido;
-import com.robson.course.repositorios.RepositorioPedido;
+import com.robson.course.repositorios.PedidoRepositorio;
 
 @Service
-public class ServicoPedido {
+public class PedidoServico {
 
     @Autowired
-    private RepositorioPedido repositorio;
+    private PedidoRepositorio repositorio;
 
     public List<Pedido> buscarTodos(){
         return repositorio.findAll();
