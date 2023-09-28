@@ -2,6 +2,8 @@ package com.robson.course.entidades;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.robson.course.entidades.enums.PedidoStatus;
@@ -12,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -39,8 +42,12 @@ public class Pedido implements Serializable{
     @JoinColumn(name = "cliente_id")
     private Usuario cliente;
 
+    @Setter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedido> itens;
 
     public Pedido(Instant momento, PedidoStatus status, Usuario cliente){
+        itens = new HashSet<>();
         this.momento = momento;
         setStatus(status);
         this.cliente = cliente;

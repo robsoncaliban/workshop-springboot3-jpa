@@ -27,8 +27,8 @@ public class PedidoRecurso {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Pedido> buscarPeloId(@PathVariable long id){
-        Pedido usuario = servico.buscarPeloId(id);
-        return ResponseEntity.ok().body(usuario);
+        Pedido pedido = servico.buscarPeloId(id);
+        return ResponseEntity.ok().body(pedido);
     }
 
 }

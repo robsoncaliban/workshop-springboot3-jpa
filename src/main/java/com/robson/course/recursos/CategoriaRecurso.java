@@ -27,8 +27,8 @@ public class CategoriaRecurso {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Categoria> buscarPeloId(@PathVariable long id){
-        Categoria usuario = servico.buscarPeloId(id);
-        return ResponseEntity.ok().body(usuario);
+        Categoria categoria = servico.buscarPeloId(id);
+        return ResponseEntity.ok().body(categoria);
     }
 
 }
