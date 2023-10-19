@@ -23,6 +23,11 @@ public class UsuarioServico {
         Optional<Usuario> resultado = repositorio.findById(id);
         return resultado.get();
     }
+
+    public Usuario addUsuario(Usuario usuario){
+        return repositorio.save(usuario);
+    }
+
     
 
 }
