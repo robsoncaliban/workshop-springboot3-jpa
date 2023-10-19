@@ -2,15 +2,14 @@ package com.robson.course.config;
 
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.Locale.Category;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.robson.course.entidades.Categoria;
 import com.robson.course.entidades.ItemPedido;
+import com.robson.course.entidades.Pagamento;
 import com.robson.course.entidades.Pedido;
 import com.robson.course.entidades.Produto;
 import com.robson.course.entidades.Usuario;
@@ -21,30 +20,26 @@ import com.robson.course.repositorios.PedidoRepositorio;
 import com.robson.course.repositorios.ProdutoRepositorio;
 import com.robson.course.repositorios.UsuarioRepositorio;
 
+import lombok.AllArgsConstructor;
+
 
 @Configuration
 @Profile("test")
+@AllArgsConstructor
 public class TesteConfig implements CommandLineRunner{
     
-    @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
-    @Autowired
     private PedidoRepositorio pedidoRepositorio;
 
-    @Autowired
     private CategoriaRepositorio categoriaRepositorio;
 
-    @Autowired
     private ProdutoRepositorio produtoRepositorio;
 
-    @Autowired
     private ItemPedidoRepositorio itemPedidoRepositorio;
 
     @Override
     public void run(String... args) throws Exception{
-        
-        
 
         Usuario u1 = new Usuario("Maria Brown", "maria@gmail.com", "988888888", "123456"); 
         Usuario u2 = new Usuario("Alex Green", "alex@gmail.com", "977777777", "123456"); 
@@ -75,7 +70,8 @@ public class TesteConfig implements CommandLineRunner{
         ItemPedido oi3 = new ItemPedido(o2, p3, 2, p3.getPreco());
         ItemPedido oi4 = new ItemPedido(o3, p5, 2, p5.getPreco()); 
 
-
+        Pagamento pag1 = new Pagamento(Instant.parse("2019-06-20T21:53:07Z"), o1);
+        o1.setPagamento(pag1);
             
         usuarioRepositorio.saveAll(Arrays.asList(u1,u2));
         pedidoRepositorio.saveAll(Arrays.asList(o1,o2,o3));

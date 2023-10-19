@@ -8,6 +8,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.robson.course.entidades.enums.PedidoStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -46,11 +48,22 @@ public class Pedido implements Serializable{
     @OneToMany(mappedBy = "id.pedido")
     private Set<ItemPedido> itens;
 
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private Pagamento pagamento;
+
     public Pedido(Instant momento, PedidoStatus status, Usuario cliente){
         itens = new HashSet<>();
         this.momento = momento;
         setStatus(status);
         this.cliente = cliente;
+    }
+
+    public Double getTotal(){
+        double soma = 0.0;
+        for(ItemPedido i : itens){
+            soma += i.getSubTotal();
+        }
+        return soma;
     }
 
     public PedidoStatus getStatus(){
