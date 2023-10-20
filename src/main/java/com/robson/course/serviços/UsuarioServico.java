@@ -28,6 +28,22 @@ public class UsuarioServico {
         return repositorio.save(usuario);
     }
 
+    public void deleteUsuario(Long id){
+        repositorio.deleteById(id);
+    }
+
+    public Usuario updateUsuario(Long id, Usuario usuario){
+        Usuario entidade = repositorio.getReferenceById(id);
+        updateData(entidade, usuario);
+        return repositorio.save(entidade);
+    }
+
+    private Usuario updateData(Usuario usuarioUpdate, Usuario usuario){
+        usuarioUpdate.setNome(usuario.getNome());
+        usuarioUpdate.setEmail(usuario.getEmail());
+        usuarioUpdate.setTelefone(usuario.getTelefone());
+        return usuarioUpdate;
+    }
     
 
 }
