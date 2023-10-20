@@ -3,11 +3,16 @@ package com.robson.course.serviços;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.robson.course.entidades.Usuario;
 import com.robson.course.repositorios.UsuarioRepositorio;
+import com.robson.course.serviços.exceptions.DatabaseException;
+import com.robson.course.serviços.exceptions.ResourceNotFoundException;
 
 @Service
 public class UsuarioServico {
@@ -21,7 +26,7 @@ public class UsuarioServico {
 
     public Usuario buscarPeloId(long id){
         Optional<Usuario> resultado = repositorio.findById(id);
-        return resultado.get();
+        return resultado.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Usuario addUsuario(Usuario usuario){
@@ -29,7 +34,12 @@ public class UsuarioServico {
     }
 
     public void deleteUsuario(Long id){
-        repositorio.deleteById(id);
+        Usuario usuario = buscarPeloId(id);
+        try {
+            repositorio.delete(usuario);
+        }catch(DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public Usuario updateUsuario(Long id, Usuario usuario){
