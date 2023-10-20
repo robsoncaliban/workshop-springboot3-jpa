@@ -43,7 +43,7 @@ public class UsuarioServico {
     }
 
     public Usuario updateUsuario(Long id, Usuario usuario){
-        Usuario entidade = repositorio.getReferenceById(id);
+        Usuario entidade = buscarPeloId(id);
         updateData(entidade, usuario);
         return repositorio.save(entidade);
     }
